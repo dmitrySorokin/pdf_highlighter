@@ -3,7 +3,8 @@ from PyPDF2.generic import (
     DictionaryObject,
     FloatObject,
     NameObject,
-    ArrayObject
+    ArrayObject,
+    TextStringObject,
 )
 
 
@@ -49,6 +50,12 @@ def create_underline(x1, y1, x2, y2, color=(1, 0, 0)):
 
 def create_strike_out(x1, y1, x2, y2, color=(1, 0, 0)):
     return _create_annotation(x1, y1, x2, y2, color, '/StrikeOut')
+
+
+def create_free_text(x1, y1, x2, y2, text, color=(1, 0, 0)):
+    annotation = _create_annotation(x1, y1, x2, y2, color, '/FreeText')
+    annotation[NameObject('/Contents')] = TextStringObject(text)
+    return annotation
 
 
 def highlight_file(file_in, file_out, annotations_dict):
