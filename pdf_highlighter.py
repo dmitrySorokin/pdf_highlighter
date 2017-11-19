@@ -12,9 +12,9 @@ def highlight(x1, y1, x2, y2, color=(1, 0, 0)):
     highlight = DictionaryObject()
 
     highlight.update({
-        NameObject("/Subtype"): NameObject("/Highlight"),
-        NameObject("/C"): ArrayObject([FloatObject(c) for c in color]),
-        NameObject("/Rect"): ArrayObject([
+        NameObject('/Subtype'): NameObject('/Highlight'),
+        NameObject('/C'): ArrayObject([FloatObject(c) for c in color]),
+        NameObject('/Rect'): ArrayObject([
             FloatObject(x1),
             FloatObject(y1),
             FloatObject(x2),
@@ -26,14 +26,14 @@ def highlight(x1, y1, x2, y2, color=(1, 0, 0)):
 
 
 def _add_highlight(highlight, page):
-    if "/Annots" in page:
-        page[NameObject("/Annots")].append(highlight)
+    if '/Annots' in page:
+        page[NameObject('/Annots')].append(highlight)
     else:
-        page[NameObject("/Annots")] = ArrayObject([highlight])
+        page[NameObject('/Annots')] = ArrayObject([highlight])
 
 
 def highlight_file(file_in, file_out, highlights_dict):
-    pdf_input = PdfFileReader(open(file_in, "rb"))
+    pdf_input = PdfFileReader(open(file_in, 'rb'))
     pdf_output = PdfFileWriter()
 
     for page_number in range(pdf_input.getNumPages()):
@@ -43,5 +43,5 @@ def highlight_file(file_in, file_out, highlights_dict):
                 _add_highlight(h, page)
         pdf_output.addPage(page)
 
-    output_stream = open(file_out, "wb")
+    output_stream = open(file_out, 'wb')
     pdf_output.write(output_stream)
