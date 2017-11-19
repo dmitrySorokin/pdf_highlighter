@@ -36,10 +36,11 @@ def highlight_file(file_in, file_out, highlights_dict):
     pdf_input = PdfFileReader(open(file_in, "rb"))
     pdf_output = PdfFileWriter()
 
-    for page_number in highlights_dict:
+    for page_number in range(pdf_input.getNumPages()):
         page = pdf_input.getPage(page_number)
-        for h in highlights_dict[page_number]:
-            _add_highlight(h, page)
+        if page_number in highlights_dict:
+            for h in highlights_dict[page_number]:
+                _add_highlight(h, page)
         pdf_output.addPage(page)
 
     output_stream = open(file_out, "wb")
